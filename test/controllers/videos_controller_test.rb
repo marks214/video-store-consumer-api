@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class VideosControllerTest < ActionDispatch::IntegrationTest
+
   describe "index" do
     it "returns a JSON array" do
       get videos_url
@@ -77,4 +78,45 @@ class VideosControllerTest < ActionDispatch::IntegrationTest
       expect(data["errors"]).must_include "title"
     end
   end
+
+  describe "create" do
+    it "creates a video" do
+      video1 = {
+        "title": 'Hidden Figures',
+        "overview": 'Some text',
+        "release_date": '1960-06-16',
+        "inventory": 8,
+        "external_id": 99999
+      }
+
+      expect {
+        post videos_path, params: video1
+      }.must_differ "Video.count", 1
+    end
+
+    it "won't add duplicate videos" do
+      video1 = {
+        "title": 'Hidden Figures',
+        "overview": 'Some text',
+        "release_date": '1960-06-16',
+        "inventory": 8,
+        "external_id": 99999
+      }
+
+      post videos_path, params: video1
+
+      video2 = {
+        "title": 'Video',
+        "overview": 'Some new text',
+        "release_date": '1990-06-16',
+        "inventory": 4,
+        "external_id": 99999
+      }
+
+      expect {
+        post videos_path, params: video2
+      }.wont_differ "Video.count"
+    end
+  end
+
 end
