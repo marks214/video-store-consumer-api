@@ -28,7 +28,7 @@ class VideosController < ApplicationController
       render(
         status: :ok,
         json: result.as_json(
-          only: %i[title overview release_date inventory image_url external_id],
+          only: %i[title overview release_date inventory],
           methods: [:available_inventory]
         )
       )

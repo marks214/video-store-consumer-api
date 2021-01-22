@@ -3,6 +3,7 @@ class Video < ApplicationRecord
   has_many :customers, through: :rentals
 
   validates :external_id, uniqueness: true
+  validates :title, presence: true
 
   def available_inventory
     self.inventory - self.rentals.where(returned: false).length
