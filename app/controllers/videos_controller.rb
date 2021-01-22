@@ -27,7 +27,10 @@ class VideosController < ApplicationController
     if result
       render(
         status: :ok,
-        json: {}
+        json: result.as_json(
+          only: %i[title overview release_date inventory],
+          methods: [:available_inventory]
+        )
       )
     else
       render status: :bad_request, json: {
