@@ -14,9 +14,9 @@ class VideoTest < ActiveSupport::TestCase
   let (:video_data2) {
     {
       "title": 'Video',
-      "overview": 'Some text',
-      "release_date": '1960-06-16',
-      "inventory": 8,
+      "overview": 'Some new text',
+      "release_date": '1990-06-16',
+      "inventory": 3,
       "external_id": 99999
     }
   }
